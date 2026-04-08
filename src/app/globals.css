@@ -128,3 +128,106 @@
     @apply font-sans;
   }
 }
+
+/* ─── Argus design tokens ─────────────────────────────────── */
+:root {
+  --ease-out: cubic-bezier(0.23, 1, 0.32, 1);
+  --ease-in-out: cubic-bezier(0.77, 0, 0.175, 1);
+}
+
+/* ─── Button press feedback ───────────────────────────────── */
+.btn-press {
+  transition: background 150ms var(--ease-out), border-color 150ms var(--ease-out),
+    color 150ms var(--ease-out), transform 120ms var(--ease-out);
+}
+.btn-press:active {
+  transform: scale(0.97);
+}
+
+/* ─── Card hover (touch-safe) ─────────────────────────────── */
+.card-lift {
+  transition: box-shadow 200ms var(--ease-out);
+}
+@media (hover: hover) and (pointer: fine) {
+  .card-lift:hover {
+    box-shadow: 0 2px 12px rgba(0, 0, 0, 0.05);
+  }
+}
+
+/* ─── Hero ambient blob ───────────────────────────────────── */
+@keyframes argus-blob-drift {
+  0%,
+  100% {
+    transform: translateX(-50%) scale(1);
+    opacity: 0.04;
+  }
+  50% {
+    transform: translateX(-50%) scale(1.18);
+    opacity: 0.07;
+  }
+}
+.argus-blob {
+  animation: argus-blob-drift 22s ease-in-out infinite;
+}
+
+/* ─── CSS-only hover links (safe in server components) ───── */
+.argus-primary-btn {
+  background: #111111;
+}
+@media (hover: hover) and (pointer: fine) {
+  .argus-primary-btn:hover {
+    background: #333333;
+  }
+}
+
+.argus-outline-btn {
+  background: transparent;
+}
+@media (hover: hover) and (pointer: fine) {
+  .argus-outline-btn:hover {
+    background: #F7F6F3;
+    border-color: #D0D0D0 !important;
+  }
+}
+
+/* ─── Auth form inputs ────────────────────────────────────── */
+.argus-input {
+  width: 100%;
+  padding: 10px 14px;
+  border: 1px solid #EAEAEA;
+  border-radius: 5px;
+  font-family: var(--font-sans), sans-serif;
+  font-size: 14px;
+  color: #111111;
+  background: #FFFFFF;
+  outline: none;
+  transition: border-color 150ms var(--ease-out), box-shadow 150ms var(--ease-out);
+  box-sizing: border-box;
+}
+.argus-input:focus {
+  border-color: #111111;
+  box-shadow: 0 0 0 3px rgba(0, 0, 0, 0.04);
+}
+.argus-input::placeholder {
+  color: #C8C8C6;
+}
+.argus-input:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+/* ─── Prefers reduced motion ──────────────────────────────── */
+@media (prefers-reduced-motion: reduce) {
+  .btn-press,
+  .btn-press:active {
+    transition: background 150ms ease, border-color 150ms ease, color 150ms ease;
+    transform: none !important;
+  }
+  .card-lift {
+    transition: none;
+  }
+  .argus-blob {
+    animation: none;
+    opacity: 0.04;
+  }
+}
